@@ -11,6 +11,7 @@ RM := rm -rf
 -include sources.mk
 -include Drivers/STM32WBxx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
+-include Core/Src/BME280/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk
 
@@ -61,7 +62,7 @@ main-build: ReceiverUnit.elf secondary-outputs
 
 # Tool invocations
 ReceiverUnit.elf ReceiverUnit.map: $(OBJS) $(USER_OBJS) C:\Users\nikan\Documents\ReceiverUnit\ReceiverUnit\STM32WB55RGVX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "ReceiverUnit.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\nikan\Documents\ReceiverUnit\ReceiverUnit\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ReceiverUnit.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "ReceiverUnit.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\nikan\Documents\ReceiverUnit\ReceiverUnit\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ReceiverUnit.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
